@@ -1,0 +1,69 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <title>Portarias PROGEP/UFRB</title>
+  <link rel="shortcut icon" href="{% static 'portaria/bootstrap/img/app.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'portaria/bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'portaria/bootstrap/css/bootstrap-theme.min.css' %}">
+  <link rel="stylesheet" href="{% static 'portaria/bootstrap/css/custom.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="sub-header">Relatório de Portarias</h2>
+    {% if portarias %}
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Interessado(s)</th>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Responsável</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for portaria in portarias %}
+                <tr>
+                  <td>{{ portaria }}</td>
+                  <td>
+                    {% for interessado in portaria.interessados.all %}
+                      {{ interessado.nome }}<br>
+                    {% endfor %}
+                  </td>
+                  <td>{{ portaria.data|date:"SHORT_DATE_FORMAT" }}</td>
+                  <td>{{ portaria.get_tipo_display }}</td>
+                  <td>{{ portaria.responsavel }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    {% else %}
+        <div class="alert alert-danger">Nenhuma portaria encontrada.</div>
+    {% endif %}
+
+
+  </div>
+
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">
+        Copyright © 2014 - <a href="http://www.ufrb.edu.br/progep/">PROGEP - Pró-Reitoria de Gestão de Pessoal</a>.
+      </p>
+        <p class="text-muted">Desenvolvido por <a href="http://www.ufrb.edu.br/ascom/">ASCOM</a>.
+      </p>
+      <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <img alt="Creative Commons Attribution 4.0 License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" />
+      </a>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="{% static 'portaria/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

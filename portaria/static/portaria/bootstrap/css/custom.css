@@ -1,0 +1,14 @@
+body {
+  padding-top: 50px;
+}
+.text-pagination {
+  text-align: center;
+}
+#footer {
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 90px;
+  background-color: #f5f5f5;
+  padding: 10px 0;
+}
