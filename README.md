@@ -8,16 +8,17 @@ Este é um projeto da [UFRB](http://ufrb.edu.br/).
 Instruções
 ---------
 
-Instale o _portarias_ e adicione as seguintes apps em `INSTALLED_APPS` no seu _settings.py_:
-<script>
+Instale o _portarias_ e adicione as seguintes apps em `INSTALLED_APPS` no seu `settings.py`:
+
+```
     'portaria',
     'filer',
     'easy_thumbnails',
-</script>
+```
 
-Já no _urls.py_, adicione:
+Já no `urls.py`, adicione:
 
-<script>
+```
     url(r'^', include('portaria.urls', namespace='portaria')),
-</script>
+```
 
