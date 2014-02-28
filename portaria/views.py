@@ -17,7 +17,7 @@ from .models import Portaria
 class Index(ListView):
     queryset = Portaria.objects.all().order_by('-codigo')
     context_object_name = 'portarias'
-    paginate_by = 1
+    paginate_by = 20
 
 
 class Relatorio(ListView):
