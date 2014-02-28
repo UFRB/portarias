@@ -45,59 +45,59 @@
     {% if query %}
       <div class="alert alert-success">Você buscou por <strong>{{ query }}</strong>.</div>
     {% endif %}
-    {% if portarias %}
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Interessado(s)</th>
-                <th>Data</th>
-                <th>Tipo</th>
-                <th>Download</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for portaria in portarias %}
-                <tr>
-                  <td>{{ portaria }}</td>
-                  <td>
-                    {% for interessado in portaria.interessados.all %}
-                      {{ interessado.nome }}<br>
-                    {% endfor %}
-                  </td>
-                  <td>{{ portaria.data|date:"SHORT_DATE_FORMAT" }}</td>
-                  <td>{{ portaria.get_tipo_display }}</td>
-                  <td>
-                    {% if portaria.arquivo %}
-                      <a href="{{ portaria.arquivo.url }}" class="btn btn-primary btn-xs active" role="button">Download</a>
-                    {% else %}
-                      Ainda não disponível
-                    {% endif %}
-                  </td>
-                </tr>
-              {% endfor %}
 
-            </tbody>
-          </table>
-        </div>
+    {% if portarias %}
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Interessado(s)</th>
+              <th>Data</th>
+              <th>Tipo</th>
+              <th>Download</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for portaria in portarias %}
+              <tr>
+                <td>{{ portaria }}</td>
+                <td>
+                  {% for interessado in portaria.interessados.all %}
+                    {{ interessado.nome }}<br>
+                  {% endfor %}
+                </td>
+                <td>{{ portaria.data|date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ portaria.get_tipo_display }}</td>
+                <td>
+                  {% if portaria.arquivo %}
+                    <a href="{{ portaria.arquivo.url }}" class="btn btn-primary btn-xs active" role="button">Download</a>
+                  {% else %}
+                    Ainda não disponível
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     {% else %}
-        <div class="alert alert-danger">Nenhuma portaria encontrada.</div>
+      <div class="alert alert-danger">Nenhuma portaria encontrada.</div>
     {% endif %}
 
     {% if paginator %}
-        <p class="text-muted text-pagination">
-          Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
-        </p>
-        <ul class="pager">
-            {% if page_obj.has_previous %}
-                  <li><a href="?page={{ page_obj.previous_page_number }}">&larr; Anterior</a></li>
-            {% endif %}
+      <p class="text-muted text-pagination">
+        Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+      </p>
+      <ul class="pager">
+        {% if page_obj.has_previous %}
+          <li><a href="?page={{ page_obj.previous_page_number }}">&larr; Anterior</a></li>
+        {% endif %}
 
-            {% if page_obj.has_next %}
-                  <li><a href="?page={{ page_obj.next_page_number }}">Próxima &rarr;</a></li>
-            {% endif %}
-        </ul>
+        {% if page_obj.has_next %}
+          <li><a href="?page={{ page_obj.next_page_number }}">Próxima &rarr;</a></li>
+        {% endif %}
+      </ul>
     {% endif %}
 
     <div class="alert alert-warning">Portarias lançadas pela PROGEP/UFRB a partir de 2014.</div>
@@ -108,8 +108,8 @@
       <p class="text-muted">
         Copyright © 2014 - <a href="http://www.ufrb.edu.br/progep/">PROGEP - Pró-Reitoria de Gestão de Pessoal</a>.
       </p>
-        <p class="text-muted">Desenvolvido por <a href="http://www.ufrb.edu.br/ascom/">ASCOM</a>.
-      </p>
+      <p class="text-muted">Desenvolvido por <a href="http://www.ufrb.edu.br/ascom/">ASCOM</a>.</p>
+      <p class="text-muted"><a href="https://github.com/UFRB/portarias"><i>Portarias</i></a> é software livre e está disponível sob licença GPLv3</a>.</p>
       <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
         <img alt="Creative Commons Attribution 4.0 License" style="border-width:0" src="http://i.creativecommons.org/l/by/4.0/80x15.png" />
       </a>
