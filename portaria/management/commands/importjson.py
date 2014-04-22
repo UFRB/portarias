@@ -26,7 +26,15 @@ class Command(BaseCommand):
             data = simplejson.loads(data_json)
 
             for item in data:
-                Servidor.objects.get_or_create(
-                    nome=item['nome'],
-                    matricula=item['matricula']
-                )
+                try:
+                    servidor = Servidor.objects.get(matricula=item['matricula'])
+                    if servidor.nome != item['nome']:
+                        servidor.nome = item['nome']
+                        servidor.save()
+                        print(("%s atualizado" % servidor))
+                except Servidor.DoesNotExist:
+                    servidor = Servidor(nome=item['nome'],
+                                        matricula=item['matricula']
+                                        )
+                    servidor.save()
+                    print(("%s criado" % servidor))
