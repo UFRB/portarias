@@ -18,7 +18,8 @@ from ...models import Servidor
 
 class Command(BaseCommand):
     args = 'filename'
-    help = 'Import a json file'
+    help = 'Importa Servidores a partir de um arquivo JSON. Caso o Servidor já exista, \
+            mas o nome tenha sido alterado, a atualização do nome é realizada'
 
     def handle(self, *args, **options):
         for filename in args:

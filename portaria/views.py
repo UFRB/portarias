@@ -21,6 +21,9 @@ class Index(ListView):
 
 
 class Relatorio(ListView):
+    """View que lista as portarias com os nomes dos funcionários responsáveis e sem
+    a coluna de Download. Foi planejada apenas para uso interno e para impressão."""
+    
     queryset = Portaria.objects.all().order_by('codigo')
     context_object_name = 'portarias'
     template_name = "portaria/relatorio.html"
