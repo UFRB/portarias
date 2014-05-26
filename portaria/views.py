@@ -15,7 +15,7 @@ from .models import Portaria
 
 
 class Index(ListView):
-    queryset = Portaria.objects.all().order_by('-codigo')
+    queryset = Portaria.objects.all().filter(ativa=True).order_by('-codigo')
     context_object_name = 'portarias'
     paginate_by = 20
 
@@ -42,7 +42,7 @@ class Search(ListView):
                 Q(tipo__icontains=self.query) |
                 Q(codigo__icontains=self.query)
             )
-            context['portarias'] = Portaria.objects.filter(qset).order_by('-codigo').distinct()
+            context['portarias'] = Portaria.objects.filter(ativa=True).filter(qset).order_by('-codigo').distinct()
         else:
             context['portarias'] = []
 
