@@ -66,11 +66,11 @@ def ExportarPortarias(request):
     writer = unicodecsv.writer(response, encoding='utf-8')
     writer.writerow(['Código', 'Interessados', 'Data', 'Tipo', 'Responsável'])
 
-    for portaria in Portaria.objects.all():
+    for portaria in Portaria.objects.all().order_by('codigo'):
         interessados = ', '.join(
             [interessado.nome for interessado in portaria.interessados.all()]
             )
-        writer.writerow([portaria.codigo, interessados,
+        writer.writerow([portaria, interessados,
             portaria.data, portaria.get_tipo_display(), portaria.responsavel])
 
     return response
