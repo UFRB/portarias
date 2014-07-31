@@ -12,7 +12,7 @@
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import patterns, url
 
-from .views import Index, Search, Relatorio
+from .views import Index, Search, Relatorio, ExportarPortarias
 
 
 urlpatterns = patterns('',
@@ -21,5 +21,8 @@ urlpatterns = patterns('',
          login_required(Relatorio.as_view(), login_url='/admin/'),
          name='relatorio'),
     url(r'page(?P<page>[0-9]+)/^$', Index.as_view(), name='index'),
-    (r'^busca/$', Search.as_view()),
+    url(r'^busca/$', Search.as_view()),
+    url(r'^exportar/$',
+        login_required(ExportarPortarias, login_url='/admin/'),
+        name='exportar'),
 )
