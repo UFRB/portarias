@@ -9,12 +9,15 @@
 #  Software Foundation. See the file README for copying conditions.
 #
 import unicodecsv
+import urllib
 
 from django.views.generic import ListView
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
 
-from .models import Portaria
+from .models import Portaria, Servidor
+from .forms import ImportarServidores
 
 
 class Index(ListView):
@@ -74,3 +77,35 @@ def ExportarPortarias(request):
             portaria.data, portaria.get_tipo_display(), portaria.responsavel])
 
     return response
+
+
+def importarServidores(arquivo):
+    servidores = unicodecsv.reader(urllib.urlopen(arquivo), encoding='utf-8')
+
+    for row in servidores:
+        try:
+            servidor = Servidor.objects.get(matricula=row[0])
+            if servidor.nome != row[1]:
+                servidor.nome = row[1]
+                servidor.save()
+
+        except Servidor.DoesNotExist:
+            servidor = Servidor(nome=row[1],
+                                matricula=row[0]
+                                )
+            servidor.save()
+
+
+def ImportarServidoresForm(request):
+    if request.method == 'POST':
+        form = ImportarServidores(request.POST)
+        if form.is_valid():
+            importarServidores(form.cleaned_data['arquivo_link'])
+
+            return HttpResponseRedirect('/confirmacao/')
+    else:
+        form = ImportarServidores()
+
+    return render(request, 'portaria/importar-servidores-form.html', {
+        'form': form,
+    })

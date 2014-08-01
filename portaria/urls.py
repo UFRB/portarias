@@ -11,8 +11,10 @@
 
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import patterns, url
+from django.views.generic import TemplateView
 
 from .views import Index, Search, Relatorio, ExportarPortarias
+from .views import ImportarServidoresForm
 
 
 urlpatterns = patterns('',
@@ -25,4 +27,10 @@ urlpatterns = patterns('',
     url(r'^exportar/$',
         login_required(ExportarPortarias, login_url='/admin/'),
         name='exportar'),
+    url(r'^importar-servidores/$',
+        login_required(ImportarServidoresForm, login_url='/admin/'),
+        name='importar'),
+    url(r'^confirmacao/$', TemplateView.as_view(
+        template_name='portaria/confirma-importacao.html')
+        ),
 )
