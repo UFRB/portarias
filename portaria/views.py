@@ -21,7 +21,7 @@ from .forms import ImportarServidores
 
 
 class Index(ListView):
-    queryset = Portaria.objects.all().filter(ativa=True).order_by('-codigo')
+    queryset = Portaria.objects.all().filter(ativa=True).order_by('-id')
     context_object_name = 'portarias'
     paginate_by = 20
 
@@ -31,7 +31,7 @@ class Relatorio(ListView):
     sem a coluna de Download. Foi planejada apenas para uso interno e para
     impressão."""
 
-    queryset = Portaria.objects.all().order_by('codigo')
+    queryset = Portaria.objects.all().filter(ativa=True).order_by('-id')
     context_object_name = 'portarias'
     template_name = "portaria/relatorio.html"
 
